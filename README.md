@@ -22,12 +22,8 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 ## Descrição
 Conforme extraída do vídeo do Prof. Ricardo
 
-> Bem-vindo ao curso de Desenvolvimento Web com ASP.NET!
-
-Nesse curso, abordaremos desde a criação de conteúdos dinâmicos simples, até a autenticação de usuários e manipulação de dados de um banco de dados. Usaremos o ASP.NET Core 5, a versão mais nova do framework. Para formar uma alicerce sólido, antes de começarmos a usar o ASP.NET em si, criarmos nosso próprio servidor HTTP e nosso próprio framework web para entender como funciona as engrenagens de uma aplicação web.
-
-Nessa aula, veremos como criar um servidor HTTP programaticamente a partir de uma aplicação console usando C# no Visual Studio Code. A princípio, veremos como processar uma requisição HTTP oriunda do navegador e, de acordo com dados extraídos dessa requisição, veremos como devolver o recurso solicitado pelo navegador do usuário.
-
-Na próxima aula, nós completaremos o servidor HTTP adicionando suporte a arquivos CSS, Javascript, imagens, fontes de letra etc. Faremos também um mecanismo simples para geração de conteúdo HTML dinâmico.
-
-Um grande abraço e bons estudos!
+>>> Bem-vindo ao curso de Desenvolvimento Web com ASP.NET!
+>>> Nesse curso, abordaremos desde a criação de conteúdos dinâmicos simples, até a autenticação de usuários e manipulação de dados de um banco de dados. Usaremos o ASP.NET Core 5, a versão mais nova do framework. Para formar uma alicerce sólido, antes de começarmos a usar o ASP.NET em si, criarmos nosso próprio servidor HTTP e nosso próprio framework web para entender como funciona as engrenagens de uma aplicação web.
+>>> Nessa aula, veremos como criar um servidor HTTP programaticamente a partir de uma aplicação console usando C# no Visual Studio Code. A princípio, veremos como processar uma requisição HTTP oriunda do navegador e, de acordo com dados extraídos dessa requisição, veremos como devolver o recurso solicitado pelo navegador do usuário.
+>>> Na próxima aula, nós completaremos o servidor HTTP adicionando suporte a arquivos CSS, Javascript, imagens, fontes de letra etc. Faremos também um mecanismo simples para geração de conteúdo HTML dinâmico.
+>>> Um grande abraço e bons estudos!
