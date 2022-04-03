@@ -4,7 +4,7 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-
+using System.Collections.Generic;
 
 class ServidorHttp
 {
@@ -28,10 +28,15 @@ class ServidorHttp
 
     public string HtmlExemplo {get; set; }
 
+    private SortedList<string,string> TiposMime {get; set; }
+
     public ServidorHttp(int porta = 8080)
     {
         this.Porta = porta;
         this.CriarHtmlExemplo();
+        this.PopularTiposMIME();
+
+
         try
         {
             // Criando novo objeto TcpListener que vai escutar no IP 127.0.0.1 - local desta máquina
@@ -129,18 +134,40 @@ class ServidorHttp
                 string nomeHost = linhas[1].Substring(iPrimeiroEspaco + 1);
 
                 byte[] bytesCabecalho = null;
-                var bytesConteudo = LerArquivo(recursoBuscado); 
+                byte[] bytesConteudo = null; 
 
-                if (bytesConteudo.Length > 0)
+                // objeto completo para listar informações a respeito do arquivo
+                FileInfo fiArquivo = new FileInfo(ObterCaminhoFisicoArquivo(recursoBuscado));
+
+                if (fiArquivo.Exists)
                 {
-                    bytesCabecalho = GerarCabecalho(versaoHttp, "text, html; charset=utf-8","200", bytesConteudo.Length);
+                    // verificando se a lista de tipos MIME suportado contém a extensão do arquivo suportado pelo navegador
+                    if (TiposMime.ContainsKey(fiArquivo.Extension.ToLower()))
+                    {
+
+                        // armazena em bytesConteudo o conteúdo lido do arquivo
+                        bytesConteudo = File.ReadAllBytes(fiArquivo.FullName);
+                        string tipoMime = TiposMime[fiArquivo.Extension.ToLower()];
+
+
+                        bytesCabecalho = GerarCabecalho(versaoHttp, tipoMime, "200", bytesConteudo.Length);
+
+                    }
+                    else // quando não há suporte para o tipo MIME enviado na requisição
+                    {
+
+                        bytesConteudo = Encoding.UTF8.GetBytes("<h1>Erro 415 - Tipo de arquivo não suportado.</h1>");
+                        bytesCabecalho = GerarCabecalho(versaoHttp, "text/html; charset=utf-8", "415", bytesConteudo.Length);
+
+                    } // if (TiposMime.ContainsKey(fiArquivo.Extension.ToLower()))
+
                 }
                 else
                 {
-                    bytesConteudo = Encoding.UTF8.GetBytes("<h1>Erro 404 - Arquivo Não Encontrado</h1>");
-                    bytesCabecalho = GerarCabecalho(versaoHttp, "text, html; charset=utf-8","404", bytesConteudo.Length);
-                }
-             
+                        bytesConteudo = Encoding.UTF8.GetBytes("<h1>Erro 404 - Arquivo Não Encontrado</h1>");
+                        bytesCabecalho = GerarCabecalho(versaoHttp, "text, html; charset=utf-8","404", bytesConteudo.Length);
+                }// end  if (fiArquivo.Exists)
+                
                 int bytesEnviados = conexao.Send(bytesCabecalho, bytesCabecalho.Length, 0);
                 bytesEnviados += conexao.Send(bytesConteudo, bytesConteudo.Length, 0);
                 conexao.Close();
@@ -176,22 +203,30 @@ class ServidorHttp
         this.HtmlExemplo = html.ToString();
     }
 
-    public byte[] LerArquivo(string recurso)
+    // método que vai popular a lista de tipos MIME
+    private void PopularTiposMIME()
     {
 
-        string diretorio = "C:\\VSCode\\simplehttpserver\\www";
-        string caminhoArquivo = diretorio + recurso.Replace("/", "\\" );
+        this.TiposMime = new SortedList<string, string>();
+        this.TiposMime.Add(".html"  , "text/html; charset=utf-8"    );
+        this.TiposMime.Add(".htm"   , "text/html; charset=utf-8"    );
+        this.TiposMime.Add(".css"   , "text/css"                    );
+        this.TiposMime.Add(".js"    , "text/javascript"             );
+        this.TiposMime.Add(".png"   , "image/png"                   );
+        this.TiposMime.Add(".jpg"   , "image/jpg"                   );
+        this.TiposMime.Add(".gif"   , "image/gif"                   );
+        this.TiposMime.Add(".svg"   , "image/svg+xml"               );
+        this.TiposMime.Add(".webp"  , "image/webp"                  );
+        this.TiposMime.Add(".ico"   , "image/ico"                   );
+        this.TiposMime.Add(".woff"  , "font/woff"                   );
+        this.TiposMime.Add(".woff2" , "font/woff2"                  );
 
-        if (File.Exists(caminhoArquivo))
-        {
-            return File.ReadAllBytes(caminhoArquivo);
-        }
-        else 
-        {
-            return new byte[0];
+    } // end private void PopularTiposMIME()
 
-        } // end if (File.Exists(caminhoArquivo))
-
-    } // end public byte[] LerArquivo(string recurso)
+    public string ObterCaminhoFisicoArquivo(string arquivo)
+    {
+        string caminhoArquivo = "C:\\VSCode\\simplehttpserver\\www" + arquivo.Replace("/", "\\");
+        return caminhoArquivo;
+    }
 
 } // end class ServidorHttp
