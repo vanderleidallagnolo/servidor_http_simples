@@ -113,10 +113,34 @@ class ServidorHttp
                 // mostra texto da requisição - o que está chegando no servidor
                 // o texto mostrado é a requisição Http sendo feita pelo navegador do usuário
                 Console.WriteLine($"\n{TextoRequisicao}\n");
+                Console.WriteLine($"\nApós o TextoRequisicao\n");
 
-                // transforma o texto em HtmlExemplo para uma sequência de bytes
-                var bytesConteudo = LerArquivo("/index.html");
-                var bytesCabecalho = GerarCabecalho("HTTP/1.1", "text, html; charset=utf-8","200", bytesConteudo.Length);
+
+                string[] linhas = TextoRequisicao.Split("\r\n");
+                 // captura a posição do primeiro caractere de espaço na primeira linha do texto da requisição
+                int iPrimeiroEspaco = linhas[0].IndexOf(' ');
+                // captura a posição do segundo caractere de espaço na primeira linha do texto da requisição
+                int iSegundoEspaco = linhas[0].LastIndexOf(' ');
+                string metodoHttp = linhas[0].Substring(0, iPrimeiroEspaco);
+                string recursoBuscado = linhas[0].Substring(iPrimeiroEspaco + 1, iSegundoEspaco - iPrimeiroEspaco - 1);
+                string versaoHttp = linhas[0].Substring(iSegundoEspaco + 1);
+
+                iPrimeiroEspaco = linhas[1].IndexOf(' ');
+                string nomeHost = linhas[1].Substring(iPrimeiroEspaco + 1);
+
+                byte[] bytesCabecalho = null;
+                var bytesConteudo = LerArquivo(recursoBuscado); 
+
+                if (bytesConteudo.Length > 0)
+                {
+                    bytesCabecalho = GerarCabecalho(versaoHttp, "text, html; charset=utf-8","200", bytesConteudo.Length);
+                }
+                else
+                {
+                    bytesConteudo = Encoding.UTF8.GetBytes("<h1>Erro 404 - Arquivo Não Encontrado</h1>");
+                    bytesCabecalho = GerarCabecalho(versaoHttp, "text, html; charset=utf-8","404", bytesConteudo.Length);
+                }
+             
                 int bytesEnviados = conexao.Send(bytesCabecalho, bytesCabecalho.Length, 0);
                 bytesEnviados += conexao.Send(bytesConteudo, bytesConteudo.Length, 0);
                 conexao.Close();
