@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
@@ -26,10 +27,11 @@ class ServidorHttp
     private int QtdeRequests { get; set; }
 
     public string HtmlExemplo {get; set; }
-    
+
     public ServidorHttp(int porta = 8080)
     {
         this.Porta = porta;
+        this.CriarHtmlExemplo();
         try
         {
             // Criando novo objeto TcpListener que vai escutar no IP 127.0.0.1 - local desta máquina
@@ -112,9 +114,11 @@ class ServidorHttp
                 // o texto mostrado é a requisição Http sendo feita pelo navegador do usuário
                 Console.WriteLine($"\n{TextoRequisicao}\n");
 
-                var bytesCabecalho = GerarCabecalho("HTTP/1.1", "text, html; charset=utf-8","200", 0);
+                // transforma o texto em HtmlExemplo para uma sequência de bytes
+                var bytesConteudo = LerArquivo("/index.html");
+                var bytesCabecalho = GerarCabecalho("HTTP/1.1", "text, html; charset=utf-8","200", bytesConteudo.Length);
                 int bytesEnviados = conexao.Send(bytesCabecalho, bytesCabecalho.Length, 0);
-
+                bytesEnviados += conexao.Send(bytesConteudo, bytesConteudo.Length, 0);
                 conexao.Close();
 
                 Console.WriteLine($"\n{bytesEnviados} bytes enviados em respostas à requsição #{numeroRequest}.");
@@ -138,5 +142,32 @@ class ServidorHttp
         
     } // end public byte[] GerarCabecalho(string versaoHttp, string tipoMime,  string codigo Http, int qtdeBytes = 0)
     
+    private void CriarHtmlExemplo()
+    {
+        StringBuilder html = new StringBuilder();
+        html.Append("<!DOCTYPE html><html lang=\"pt-br\"><head><meta charset=\"UTF-8\">");
+        html.Append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+        html.Append("<title>Página Estática</title></head><body>");
+        html.Append("<h1>Página Estática</h1></body></html>");
+        this.HtmlExemplo = html.ToString();
+    }
+
+    public byte[] LerArquivo(string recurso)
+    {
+
+        string diretorio = "C:\\VSCode\\simplehttpserver\\www";
+        string caminhoArquivo = diretorio + recurso.Replace("/", "\\" );
+
+        if (File.Exists(caminhoArquivo))
+        {
+            return File.ReadAllBytes(caminhoArquivo);
+        }
+        else 
+        {
+            return new byte[0];
+
+        } // end if (File.Exists(caminhoArquivo))
+
+    } // end public byte[] LerArquivo(string recurso)
 
 } // end class ServidorHttp
