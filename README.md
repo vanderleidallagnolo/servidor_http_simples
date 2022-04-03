@@ -1,4 +1,4 @@
-# servidor_http_simples
+# Simple HTTP Server
 Conforme aulas 1 e 2 do tutorial
 
 Aula 1:
