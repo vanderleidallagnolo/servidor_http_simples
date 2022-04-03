@@ -30,11 +30,14 @@ class ServidorHttp
 
     private SortedList<string,string> TiposMime {get; set; }
 
+    private SortedList<string, string> DiretoriosHosts {get; set;}
+
     public ServidorHttp(int porta = 8080)
     {
         this.Porta = porta;
         this.CriarHtmlExemplo();
         this.PopularTiposMIME();
+        this.PopularDiretoriosHosts();
 
 
         try
@@ -137,7 +140,7 @@ class ServidorHttp
                 byte[] bytesConteudo = null; 
 
                 // objeto completo para listar informações a respeito do arquivo
-                FileInfo fiArquivo = new FileInfo(ObterCaminhoFisicoArquivo(recursoBuscado));
+                FileInfo fiArquivo = new FileInfo(ObterCaminhoFisicoArquivo(nomeHost, recursoBuscado));
 
                 if (fiArquivo.Exists)
                 {
@@ -223,9 +226,19 @@ class ServidorHttp
 
     } // end private void PopularTiposMIME()
 
-    public string ObterCaminhoFisicoArquivo(string arquivo)
+    private void PopularDiretoriosHosts()
     {
-        string caminhoArquivo = "C:\\VSCode\\simplehttpserver\\www" + arquivo.Replace("/", "\\");
+
+        this.DiretoriosHosts = new SortedList<string, string>();
+        this.DiretoriosHosts.Add("localhost","C:\\VSCode\\simplehttpserver\\www\\localhost");
+        this.DiretoriosHosts.Add("maroquio.com","C:\\VSCode\\simplehttpserver\\www\\maroquio.com");
+
+    } // end private void PopularDiretoriosHosts()
+
+    public string ObterCaminhoFisicoArquivo(string host, string arquivo)
+    {
+        string diretorio = this.DiretoriosHosts[host.Split(":")[0]];
+        string caminhoArquivo = diretorio + arquivo.Replace("/", "\\");
         return caminhoArquivo;
     }
 
