@@ -3,20 +3,25 @@
 ## Direitos e fontes
 
 Todos os direitos deste código RESERVADOS ao Prof. Ricardo Maroquio.
+
 Código extraído de seus vídeos no canal:
+
 https://www.youtube.com/channel/UCB0-PxBvklzZsCh6U_rIzAw
 
 Conforme aulas 1 e 2 do tutorial
 
 Aula 1:
+
 https://www.youtube.com/watch?v=1b0ot7xaJ00&list=PL0YuSuacUEWuN8xnvk2b5yW_koKbkHh_m&index=1
 
 Aula 2:
+
 https://www.youtube.com/watch?v=_3_tDDpzS30&list=PL0YuSuacUEWuN8xnvk2b5yW_koKbkHh_m&index=2
 
 ## Referências importantes
 
 HTTP response status codes
+
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 
 ## Descrição
