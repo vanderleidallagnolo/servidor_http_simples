@@ -6,3 +6,7 @@ https://www.youtube.com/watch?v=1b0ot7xaJ00&list=PL0YuSuacUEWuN8xnvk2b5yW_koKbkH
 
 Aula 2:
 https://www.youtube.com/watch?v=_3_tDDpzS30&list=PL0YuSuacUEWuN8xnvk2b5yW_koKbkHh_m&index=2
+
+Referência importante:
+HTTP response status codes
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
