@@ -24,6 +24,10 @@ HTTP response status codes
 
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 
+Common MIME types
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
+
 ## Descrição
 Conforme extraída do vídeo do Prof. Ricardo
 
