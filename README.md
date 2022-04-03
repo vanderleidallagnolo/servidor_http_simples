@@ -50,8 +50,10 @@ Conforme extraída do vídeo do Prof. Ricardo - aula 2
 >Nessa aula, iremos concluir a criação um servidor HTTP programaticamente a partir de uma aplicação console usando C# no Visual Studio Code. Nessa aula eu mostro como fazer nosso servidor HTTP suportar outros tipos de arquivos para renderização de páginas (CSS, Javascript, imagens etc.). Mostro também como gerar conteúdo HTML dinamicamente.
 >
 >Os links a seguir mostram como editar o arquivo de hosts no Linux e no MacOS:
->Linux: [CLIQUE AQUI] (https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbUp4cnZ6REZidlFtTm5FMm5LMTRjZVpxLXlsZ3xBQ3Jtc0tublNycm5BQ1F5M0NmTHhtOWhGZlR3aUVCWW5kdk1XeXBlS0hyaDc5blpFcUFSNW91NVFVSWppLVpNZExDM1JGa29sRWFJZEtiSWZCRkxiaGVpUUUyS1htbUVnTHdsSWlQZGMzV3VwY0IyWi0yRThkNA&q=https%3A%2F%2Fking.host%2Fwiki%2Fartigo%2Fcomo-editar-o-arquivo-hosts-no-linux-ubuntu%2F)
->MacOS: https://www.hostinger.com.br/tutoriai...
+>
+>Linux: [CLIQUE AQUI](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbUp4cnZ6REZidlFtTm5FMm5LMTRjZVpxLXlsZ3xBQ3Jtc0tublNycm5BQ1F5M0NmTHhtOWhGZlR3aUVCWW5kdk1XeXBlS0hyaDc5blpFcUFSNW91NVFVSWppLVpNZExDM1JGa29sRWFJZEtiSWZCRkxiaGVpUUUyS1htbUVnTHdsSWlQZGMzV3VwY0IyWi0yRThkNA&q=https%3A%2F%2Fking.host%2Fwiki%2Fartigo%2Fcomo-editar-o-arquivo-hosts-no-linux-ubuntu%2F)
+>
+>MacOS: [CLIQUE AQUI](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbnpVd0RXcE9FX0ZIdDZ0Nzg5eXZINmh1NmNuQXxBQ3Jtc0tsVEpnRzlmTWdBZ3VWLWktYUNLXzVwMk1na1h6cmlDRDhmV3hLcEY0THZSa1JXRHVPNmZVczhnbGJEQUE1RzhuSW03UHJMc2tkeTQwemV4bkNPcnZNVE1XSks2U0tOejRsLUE2R1FBOW1CVGxfb2hCYw&q=https%3A%2F%2Fwww.hostinger.com.br%2Ftutoriais%2Fcomo-editar-o-arquivo-hosts-no-mac)
 >
 >Na próxima aula, nós veremos como criar um framework simples de geração de conteúdo dentro de nosso servidor HTTP.
 >
